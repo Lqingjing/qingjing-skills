@@ -1,0 +1,8 @@
+model = "gpt-test"
+CODEX_CLI_PATH = 'C:\fixture\codex.exe'
+web_search = "cached"
+notify = ["C:\\fixture\\notify.exe", "arg,#[]"]
+empty_args = []
+
+[features]
+shell_tool = false
