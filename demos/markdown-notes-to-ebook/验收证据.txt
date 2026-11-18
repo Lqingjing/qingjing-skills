@@ -1,0 +1,12 @@
+独立验收日志摘录。保留原测试结果、环境版本和诊断，省略本机输出路径。
+
+3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]
+PASS documented clean check and build from relocated package
+Edge 157.0.4341.60
+PASS offline reading, TOC, search, bookmark, highlight and note
+PASS JSON restores all four state fields
+PASS old bookmark/note/progress after modifying earlier section; zero external requests and JS errors
+PASS section exclusion in output
+ [ERROR] Duplicate anchor 'word-露珠图谱': '微型阳台观测手册' / '晨间检查' (page starts at line 14) / '露珠图谱' (line 16) conflicts with '另一章' / '另一页' (page starts at line 29) / '露珠图谱' (line 30)
+ [ERROR] Duplicate anchor 'word-露珠图谱': '微型阳台观测手册' / '晨间检查' (page starts at line 14) / '露珠图谱' (line 16) conflicts with '另一章' / '另一页' (page starts at line 29) / '露珠图谱' (line 30)
+PASS collision diagnostics in both modes and no overwrite

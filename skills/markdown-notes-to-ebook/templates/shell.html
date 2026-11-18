@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{{TITLE}}</title>
+<script>document.documentElement.classList.add("js");</script>
+<style>{{CSS}}</style>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <div class="book-icon">▤</div>
+      <div><b>知识 · 离线教辅</b><small>MARKDOWN → READER</small></div>
+    </div>
+    <div class="side-caption">Contents / 目录</div>
+    {{TOC}}
+    <div class="side-footer"><b>阅读数据</b><br>书签、重点、批注和阅读位置只保存在本机浏览器；重新构建不会清空，建议定期在“数据”中导出备份。</div>
+  </aside>
+  <div class="main-wrap">
+    <header class="reader-topbar">
+      <button type="button" class="tb-btn tb-menu" id="menu-btn" aria-label="展开或收起目录">☰</button>
+      <div class="tb-title"><b>{{TITLE}}</b><span id="topbar-crumb">封面</span></div>
+      <div class="tb-actions">
+        <button type="button" class="tb-btn continue" id="continue-btn" hidden>继续阅读</button>
+        <button type="button" class="tb-btn" id="search-open"><span class="tb-label">搜索</span> ⌕</button>
+        <button type="button" class="tb-btn" id="bookmarks-open"><span class="tb-label">书签</span><span class="tb-count" id="bookmark-count">0</span></button>
+        <button type="button" class="tb-btn" id="data-open"><span class="tb-label">数据</span> ⋯</button>
+        <button type="button" class="tb-btn" id="cover-btn"><span class="tb-label">封面</span> ⌂</button>
+      </div>
+    </header>
+    <main id="book" class="book reader-book">
+      <div id="pages">{{PAGES}}</div>
+      <footer class="bottom-note">知识教辅 · 按节分页阅读 · 原始 Markdown 保持不变</footer>
+    </main>
+    <nav class="page-nav" aria-label="翻页">
+      <button type="button" id="page-prev">上一页</button>
+      <span class="page-indicator" id="page-indicator" hidden>1 / 1</span>
+      <button type="button" id="page-next">下一页</button>
+    </nav>
+  </div>
+</div>
+
+<div class="reader-overlay" id="search-overlay" hidden>
+  <div class="reader-panel" role="dialog" aria-modal="true" aria-labelledby="search-title">
+    <div class="panel-head"><h2 id="search-title">全书搜索</h2><button type="button" class="close-btn" data-close="search">关闭</button></div>
+    <p class="panel-note">支持关键词检索；结果显示所在章节与知识点，点击直达对应位置。</p>
+    <input class="search-input" id="search-input" type="search" placeholder="输入关键词，例如 并发、锁、机制" autocomplete="off">
+    <div class="search-results" id="search-results"></div>
+  </div>
+</div>
+
+<div class="reader-overlay" id="bookmarks-overlay" hidden>
+  <div class="reader-panel" role="dialog" aria-modal="true" aria-labelledby="bookmarks-title">
+    <div class="panel-head"><h2 id="bookmarks-title">知识书签</h2><button type="button" class="close-btn" data-close="bookmarks">关闭</button></div>
+    <p class="panel-note">书签按知识点保存；重新构建后仍会保留。</p>
+    <div id="bookmark-list"></div>
+  </div>
+</div>
+
+<div class="reader-overlay" id="data-overlay" hidden>
+  <div class="reader-panel" role="dialog" aria-modal="true" aria-labelledby="data-title">
+    <div class="panel-head"><h2 id="data-title">阅读数据与备份</h2><button type="button" class="close-btn" data-close="data">关闭</button></div>
+    <p class="panel-note">数据与 Markdown 完全分离，只保存在本机浏览器。更换浏览器或清理浏览器数据前，请先导出备份。</p>
+    <div class="data-row">
+      <button type="button" class="data-btn primary" id="data-export">导出备份</button>
+      <button type="button" class="data-btn" id="data-import">导入备份</button>
+      <input type="file" id="data-import-file" accept=".json,application/json" hidden>
+      <button type="button" class="data-btn danger" id="data-reset">清空本机数据</button>
+    </div>
+    <div class="data-status" id="data-status"></div>
+  </div>
+</div>
+
+<script>{{SCRIPT}}</script>
+</body>
+</html>

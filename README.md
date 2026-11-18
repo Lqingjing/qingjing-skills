@@ -6,6 +6,7 @@
 |---|---|---|
 | [learning-gap-repair](skills/learning-gap-repair/) | Codex CLI app-server 原生显式调用；具体证据与限制见测试记录 | 根据学习表现补足必要缺口，按需检查，再返回原任务 |
 | [codex-provider-switch-guard](skills/codex-provider-switch-guard/) | Experimental；隔离合成测试与真实 CLI 离线解析 | OpenAI / DeepSeek 安全切换机制，包含预检、备份、原子写入与选择性恢复 |
+| [markdown-notes-to-ebook](skills/markdown-notes-to-ebook/) | 本地构建与桌面 Edge 离线阅读验收；限制见 Skill README | 将按章、页、条目编排的 Markdown 编译为单文件 HTML 阅读器 |
 
 [安装与使用](skills/learning-gap-repair/README.md) · [验收记录](skills/learning-gap-repair/tests/results.md) · [实际输入输出](skills/learning-gap-repair/tests/runs.jsonl)
 
@@ -20,6 +21,7 @@
 ## 演示项目
 
 - [医考帮离线批次监督与验收演示](demos/batch-acceptance-demo/)。使用自编数据演示批次监督、覆盖核验和验收结果保护。
+- [Markdown 笔记转离线电子书演示](demos/markdown-notes-to-ebook/)。使用自编《微型阳台观测手册》演示构建、离线阅读、搜索、标记和 JSON 恢复。
 
 ## 许可
 

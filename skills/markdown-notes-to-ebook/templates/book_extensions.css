@@ -1,0 +1,197 @@
+/* Book extensions and typography layer.
+   Provides layout enhancements, note hierarchy styling,
+   and responsive UI controls. */
+
+/* Full-book anchors jump immediately */
+html {
+  scroll-behavior: auto !important;
+}
+
+/* ---- Entry typography ---- */
+.chapter .vocab-meaning-line {
+  display: block;
+  margin: 0.12em 0;
+}
+.chapter .vocab-meaning-line.vocab-new-pos {
+  margin-top: 0.72em;
+}
+.chapter .vocab-pos-only {
+  margin-top: 0.72em;
+  margin-bottom: 0.18em;
+  font-weight: 600;
+}
+.chapter .vocab-pos {
+  display: inline-block;
+  width: 3.2em;
+  box-sizing: border-box;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.chapter .vocab-no {
+  display: inline-block;
+  margin-right: 0.08em;
+  font-size: 0.78em;
+  line-height: 1;
+  vertical-align: 0.08em;
+}
+
+/* ---- Unit / word-group hierarchy (same blue system as the approved CSS) ---- */
+.unit-heading {
+  margin: 42px 0 20px;
+  padding: 0 0 11px;
+  color: var(--blue-900);
+  font-size: 30px;
+  font-weight: 800;
+  line-height: 1.3;
+  letter-spacing: -.035em;
+  border-bottom: 2px solid var(--blue-300);
+}
+.unit-heading:first-of-type {
+  margin-top: 6px;
+}
+/* Restart WORD 01 at each P, matching the approved P46 card reference. */
+.chapter {
+  counter-reset: lesson-word;
+}
+.group-heading {
+  margin: 32px 0 14px;
+  padding: 0 0 8px;
+  color: var(--blue-900);
+  font-size: 19px;
+  font-weight: 780;
+  line-height: 1.5;
+  letter-spacing: -.02em;
+  border-bottom: 1px solid var(--blue-300);
+}
+
+/* ---- Source note under each P title ---- */
+.p-source {
+  margin: 0 0 13px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+/* ---- Small labels inside core meaning / example / warning panels ---- */
+.section-label {
+  margin: 0 0 6px;
+  color: var(--blue-700);
+  font-size: 12px;
+  font-weight: 760;
+  letter-spacing: .02em;
+}
+.important-note .section-label {
+  color: #8a5a31;
+}
+
+/* ---- Text relationship panel: the formal note has no SVG node data ---- */
+.relation-diagram p,
+.relation-diagram li {
+  font-size: 14px;
+}
+.relation-diagram > p:first-of-type {
+  margin-top: 0;
+}
+.relation-diagram ul {
+  margin: 8px 0;
+}
+
+/* ---- Example blockquotes live inside the approved quote panel ---- */
+.quote-panel blockquote {
+  margin: 8px 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+.quote-panel blockquote p {
+  margin: 6px 0;
+}
+
+/* ---- 我的补充: secondary, clearly weaker than the word cards ---- */
+.personal-note {
+  margin: 22px 0 4px;
+  padding: 11px 15px;
+  border: 1px dashed #cfdae5;
+  border-left: 3px solid #9db6cc;
+  border-radius: 0 9px 9px 0;
+  background: #fbfcfd;
+  color: #46566a;
+  font-size: 14px;
+}
+.personal-note h3 {
+  margin: 0 0 5px;
+  color: #52677d;
+  font-size: 14px;
+  font-weight: 750;
+  letter-spacing: .02em;
+}
+.personal-note p,
+.personal-note li {
+  font-size: 14px;
+}
+
+/* ---- Fenced code blocks from the formal notes ---- */
+.code-panel {
+  margin: 14px 0;
+  padding: 14px 16px;
+  border: 1px solid #e4e9ef;
+  border-radius: 10px;
+  background: #f8f9fb;
+  color: #2b3c4e;
+  font-family: ui-monospace, "Cascadia Code", Consolas, monospace;
+  font-size: 13px;
+  line-height: 1.65;
+  white-space: pre-wrap;
+  overflow-x: auto;
+}
+
+@media (max-width: 790px) {
+  html,
+  body {
+    width: 100%;
+    max-width: 100%;
+  }
+  .app,
+  .main-wrap,
+  .book,
+  .book-content,
+  .chapter,
+  .word-section,
+  .relation-diagram,
+  .table-scroll {
+    max-width: 100%;
+    min-width: 0;
+  }
+  .book {
+    width: 100%;
+  }
+  .word-section {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .chapter table {
+    min-width: 520px;
+  }
+  .table-scroll {
+    overflow-x: auto;
+  }
+  .chapter-heading,
+  .word-heading,
+  .p-source,
+  .section-label,
+  .relation-diagram p,
+  .relation-diagram li {
+    overflow-wrap: anywhere;
+  }
+  .unit-heading {
+    margin-top: 30px;
+    font-size: 24px;
+  }
+  .group-heading {
+    margin-top: 25px;
+    font-size: 17px;
+  }
+  .p-source {
+    font-size: 12px;
+  }
+}

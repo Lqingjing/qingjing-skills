@@ -1,0 +1,1942 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>微型阳台观测手册</title>
+<script>document.documentElement.classList.add("js");</script>
+<style>:root {
+  --ink: #202833;
+  --ink-soft: #283341;
+  --muted: #526172;
+  --blue-900: #274d7a;
+  --blue-700: #3b6591;
+  --blue-500: #789dc2;
+  --blue-300: #d6e4ef;
+  --blue-100: #f5f8fb;
+  --blue-050: #fafbfd;
+  --line: #e6ebf0;
+  --paper: #ffffff;
+  --bg: #f7f9fb;
+  --amber: #9b6336;
+  --amber-bg: #fff8ee;
+  --shadow: 0 18px 50px rgba(32, 65, 100, .055);
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
+  background: var(--bg);
+  font-size: 16px;
+  line-height: 1.76;
+  -webkit-font-smoothing: antialiased;
+}
+button { font: inherit; }
+a { color: inherit; text-decoration: none; }
+#progress { position: fixed; left: 0; top: 0; height: 3px; width: 0; background: var(--blue-500); z-index: 100; }
+.app { display: grid; grid-template-columns: 252px minmax(0, 1fr); min-height: 100vh; }
+.sidebar {
+  position: sticky; top: 0; align-self: start; height: 100vh; overflow: auto;
+  padding: 30px 22px; border-right: 1px solid var(--line);
+  background: #fcfdfe;
+}
+.brand { display: flex; align-items: center; gap: 12px; margin-bottom: 30px; }
+.book-icon { width: 40px; height: 42px; display: grid; place-items: center; background: var(--blue-900); border-radius: 11px; color: white; font-size: 21px; }
+.brand b { display: block; font-size: 15px; line-height: 1.2; }
+.brand small { display: block; color: var(--muted); font-size: 11px; margin-top: 5px; }
+.side-caption { font-size: 11px; color: #607289; letter-spacing: .17em; font-weight: 800; text-transform: uppercase; margin-bottom: 13px; }
+.toc-link { display: flex; align-items: center; gap: 10px; padding: 9px 10px; margin: 3px 0; font-size: 12px; font-weight: 700; border-radius: 9px; color: #405064; transition: background .18s, color .18s; }
+.toc-link:hover, .toc-link.active { color: var(--blue-900); background: var(--blue-100); }
+.toc-bullet { width: 6px; height: 6px; border-radius: 50%; background: #9ebad3; flex: 0 0 auto; }
+.toc-link.active .toc-bullet { background: var(--blue-700); }
+.toc-sub { display: block; font-size: 12px; padding: 7px 5px 7px 28px; color: #566578; border-left: 1px solid #d7e4ef; margin-left: 13px; line-height: 1.58; }
+.toc-sub:hover, .toc-sub.active { color: var(--blue-900); background: var(--blue-050); }
+.side-footer { margin-top: 26px; padding: 13px; border: 1px solid var(--line); border-radius: 12px; background: #fff; color: #4c5a6a; font-size: 12px; line-height: 1.7; }
+.side-footer b { color: var(--blue-900); }
+.main-wrap { min-width: 0; }
+.reading-actions { display: flex; align-items: center; justify-content: flex-end; gap: 9px; max-width: 990px; margin: 0 auto; padding: 15px 24px; }
+.reading-actions small { margin-right: auto; color: #566373; font-size: 12px; }
+.action { border: 1px solid #d5e2ef; background: #fff; border-radius: 999px; cursor: pointer; padding: 5px 13px; font-size: 12px; font-weight: 700; color: var(--blue-900); }
+.action:hover { border-color: var(--blue-500); background: var(--blue-050); }
+.book { max-width: 990px; margin: 0 auto 70px; background: var(--paper); border: 1px solid #e6edf4; border-radius: 18px; box-shadow: var(--shadow); overflow: hidden; }
+.hero {
+  min-height: 240px; padding: 37px 68px 29px;
+  background: linear-gradient(112deg, #244b78 0%, #376797 67%, #6089b0 100%);
+  color: white; position: relative; overflow: hidden;
+}
+.hero:before { content: ""; position: absolute; right: -120px; top: -140px; width: 430px; height: 430px; border: 1px solid rgba(255,255,255,.11); border-radius: 50%; box-shadow: 0 0 0 65px rgba(255,255,255,.035), 0 0 0 134px rgba(255,255,255,.025); pointer-events: none; }
+.hero:after { content: ""; position: absolute; right: 80px; bottom: 40px; width: 75px; height: 96px; border: 2px solid rgba(255,255,255,.17); border-radius: 3px 14px 14px 3px; transform: rotate(11deg); pointer-events: none; }
+.hero-kicker { font-weight: 750; letter-spacing: .17em; font-size: 11px; color: #d3e5f5; }
+.hero h1 { font-weight: 800; font-size: clamp(28px, 3vw, 40px); letter-spacing: -.035em; line-height: 1.35; max-width: 690px; margin: 14px 0 5px; }
+.hero-sub { font-size: 17px; color: #d8e9f7; }
+.pill-row { display: flex; flex-wrap: wrap; gap: 7px; margin: 15px 0 10px; }
+.pill { padding: 3px 11px; font-size: 11px; border-radius: 999px; border: 1px solid #ffffff53; background: #ffffff15; color: #f0f7fd; }
+.hero-base { font-size: 11px; color: #eaf2fa; line-height: 1.6; }
+.book-content { padding: 25px 68px 65px; }
+.intro-note { background: var(--blue-050); border: 1px solid #e3e9ef; border-left: 3px solid var(--blue-500); padding: 13px 19px; margin: 7px 0 30px; border-radius: 0 10px 10px 0; color: var(--ink-soft); }
+.intro-note p { margin: 4px 0; font-size: 13px; }
+.chapter { scroll-margin-top: 25px; padding: 16px 0 29px; }
+.chapter + .chapter { border-top: 1px solid var(--line); }
+.chapter-heading { font-size: 25px; letter-spacing: -.04em; line-height: 1.42; padding: 0 0 15px; margin: 18px 0 24px; color: var(--blue-900); position: relative; }
+.chapter-heading:after { content: ""; position: absolute; left: 0; bottom: 0; width: 65px; height: 3px; border-radius: 999px; background: #83afd0; }
+.chapter p { margin: 13px 0; }
+.word-section { scroll-margin-top: 22px; padding: 20px 27px 22px; margin: 23px -8px 27px; border: 1px solid #e1e8ef; background: linear-gradient(180deg,#fcfdff,#fff 95px); border-radius: 15px; box-shadow: 0 5px 15px rgba(32,65,100,.025); }
+.word-heading { font-size: 22px; line-height: 1.42; margin: 4px 0 16px; font-weight: 800; color: var(--blue-900); letter-spacing: -.02em; }
+.chapter p, .chapter li { font-size: 15px; }
+.chapter li { margin: 6px 0; padding-left: 4px; }
+.chapter ul, .chapter ol { padding-left: 21px; }
+.chapter strong { color: #26303b; }
+.chapter code { font-family: ui-monospace, "Cascadia Code", Consolas, monospace; background: #f0f3f7; border-radius: 5px; padding: 1px 5px; color: #253648; font-size: .92em; white-space: normal; }
+.core-meaning { background: var(--blue-100); border-left: 3px solid var(--blue-500); padding: 12px 15px; border-radius: 0 9px 9px 0; }
+.important-note { background: var(--amber-bg); border-left: 3px solid #d6ab7c; padding: 10px 14px; border-radius: 0 9px 9px 0; }
+.explain-note { background: #f6f8fa; border-left: 3px solid #86afce; padding: 11px 14px; border-radius: 0 9px 9px 0; }
+.example-label { color: var(--blue-700); font-weight: 750; }
+.quote-panel { background: #fafbfd; border: 1px solid #e4e9ef; border-left: 3px solid #8baaca; padding: 13px 21px; margin: 16px 0; border-radius: 0 12px 12px 0; }
+.quote-panel p { margin: 7px 0; }
+.quote-panel p:first-child { font-weight: 590; color: #273645; }
+.quote-panel p:nth-child(2) { color: #374455; font-size: 14px; }
+.relation-diagram { margin: 22px 0; padding: 19px 14px; background: #fafbfd; border: 1px solid #e3e9ee; border-radius: 13px; overflow: hidden; }
+.diagram-label { font-weight: 750; font-size: 13px; color: var(--blue-900); margin: 0 8px 10px; display: flex; align-items: center; gap: 7px; }
+.dia-dot { height: 7px; width: 7px; border-radius: 50%; background: #6b9fc8; }
+.dia-hint { font-size: 11px; color: #5c6a7a; font-weight: 400; margin-left: auto; }
+.relation-diagram svg { max-width: 100%; height: auto; max-height: 450px; display: block; margin: auto; }
+.relation-diagram svg .node { animation: appear .5s both; animation-delay: .1s; }
+.relation-diagram svg .node:nth-of-type(2n) { animation-delay: .22s; }
+.relation-diagram svg .node:nth-of-type(3n) { animation-delay: .35s; }
+.table-scroll { overflow: auto; border-radius: 12px; border: 1px solid var(--line); margin: 20px 0; }
+.chapter table { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 545px; }
+.chapter th { background: #f0f4f8; color: #283645; font-weight: 750; }
+.chapter td, .chapter th { padding: 10px 12px; text-align: left; vertical-align: top; border-bottom: 1px solid #e7eef4; }
+.chapter tr:nth-child(even) td { background: #fafcfe; }
+.chapter tr:last-child td { border: 0; }
+.chapter hr { border: 0; border-top: 1px solid var(--line); margin: 32px 0; }
+.diagram-source, .code-panel { white-space: pre-wrap; background: #f8f9fb; padding: 18px; border-radius: 12px; }
+.bottom-note { text-align: center; color: #5c6977; font-size: 12px; padding: 25px 15px 40px; }
+.mobile-toggle { display: none; }
+.book.reader-large .chapter p, .book.reader-large .chapter li { font-size: 17px; }
+.book.reader-large { max-width: 1050px; }
+.reader-large .chapter { line-height: 2; }
+.no-motion *, .no-motion *:after { animation: none !important; transition: none !important; }
+@keyframes appear { from { opacity: 0; transform: translateY(7px); } to { opacity: 1; transform: translateY(0); } }
+@media(max-width:1040px) { .app { grid-template-columns: 210px minmax(0,1fr); } .sidebar { padding: 24px 14px; } .book-content { padding: 25px 36px 55px; } .hero { padding: 45px 39px; } }
+@media(max-width:790px) { .app { display: block; } .sidebar { position: fixed; left: 0; top: 0; width: 270px; height: 100vh; z-index: 30; transform: translateX(-103%); transition: transform .25s; box-shadow: 16px 0 50px #203c5b25; } .sidebar.open { transform: translateX(0); } .mobile-toggle { display: block; margin-right: auto; } .reading-actions { padding: 11px 13px; } .reading-actions small { display: none; } .book { margin: 0 auto; border: 0; border-radius: 0; } .hero { min-height: 0; padding: 26px 24px 20px; } .hero:after { right: 25px; bottom: 18px; width: 33px; height: 44px; } .hero h1 { font-size: 26px; line-height: 1.3; } .hero-sub { display: none; } .hero-base { margin: 9px 0 0; } .book-content { padding: 14px 20px 38px; } .word-section { padding: 16px 17px; margin: 20px -4px; } .chapter-heading { font-size: 22px; } .word-heading { font-size: 20px; } .dia-hint { display: none; } }
+@media(prefers-reduced-motion:reduce) { *, *:before, *:after { scroll-behavior: auto !important; animation: none !important; transition: none !important; } }
+@media print { .sidebar, .reading-actions, #progress { display: none !important; } .app { display: block; } .book { box-shadow: none; border: 0; margin: 0; max-width: none; } .hero { -webkit-print-color-adjust: exact; print-color-adjust: exact; } .book-content { padding: 20px; } .word-section { break-inside: avoid; } .bottom-note { display: none; } }
+
+/* Edition 2: color is an organizing accent; reading text stays neutral charcoal. */
+.book-content, .chapter, .chapter p, .chapter li, .chapter td { color: #202833; }
+.intro-note, .core-meaning, .explain-note, .important-note, .quote-panel {
+  color: #202833;
+}
+.intro-note { background: #f8fafc; border-color: #e4ebf1; border-left-color: #7f9fbe; }
+.core-meaning { background: #f8fafc; border-left-color: #82a4c5; }
+.explain-note { background: #f9fafc; border-left-color: #94afc8; }
+.quote-panel { background: #fbfcfd; }
+.intro-note strong, .core-meaning strong, .explain-note strong,
+.important-note strong, .quote-panel strong { color: #202833; }
+.intro-note code, .core-meaning code, .explain-note code,
+.quote-panel code { color: #202833; background: #eaf0f5; }
+.chapter code { color: #263644; background: #eef3f7; }
+.chapter strong { color: #202833; font-weight: 700; }
+.word-heading, .chapter-heading { color: #274d7a; }
+.chapter table th { color: #283645; background: #f0f4f8; }
+.chapter table td { color: #202833; }
+.quote-panel p:first-child, .quote-panel p:nth-child(2) { color: #27313e; }
+.diagram-label { color: #334254; }
+.relation-diagram { background: #fbfcfe; }
+@media (max-width: 790px) { .chapter p, .chapter li { font-size: 15px; } }
+
+/* Edition 3 — unmistakable WORD boundaries without multiplying colors.
+   Main lesson text is unchanged; only each word's outer visual container changes. */
+.book-content { counter-reset: lesson-word; }
+.chapter .word-section {
+  counter-increment: lesson-word;
+  position: relative;
+  isolation: isolate;
+  background: #ffffff;
+  border: 1.5px solid #cddfee;
+  border-radius: 16px;
+  padding: 0 25px 25px;
+  margin: 36px -8px 46px;
+  overflow: hidden;
+  box-shadow: 0 8px 22px rgba(32,70,110,.075);
+}
+.chapter .word-section + .word-section { margin-top: 50px; }
+.chapter .word-section > .word-heading {
+  display: block;
+  background: #2c577f;
+  color: #ffffff;
+  border: 0;
+  border-bottom: 3px solid #adc7df;
+  padding: 19px 25px 20px;
+  margin: 0 -25px 23px;
+  font-size: 21px;
+  font-weight: 780;
+  line-height: 1.52;
+  letter-spacing: -.016em;
+  text-wrap: pretty;
+}
+.chapter .word-section > .word-heading::before {
+  content: 'WORD ' counter(lesson-word, decimal-leading-zero);
+  display: inline-block;
+  margin: 0 11px 0 0;
+  padding: 3px 9px;
+  background: rgba(255,255,255,.13);
+  border: 1px solid rgba(255,255,255,.4);
+  border-radius: 5px;
+  color: #ffffff;
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  font-weight: 720;
+  font-size: 10px;
+  line-height: 1.4;
+  vertical-align: .22em;
+  letter-spacing: .055em;
+}
+.chapter .word-section:nth-of-type(even) > .word-heading { background: #365f89; }
+.chapter .word-section:nth-of-type(3n) > .word-heading { background: #294e79; }
+.chapter .word-section > :last-child { margin-bottom: 0; }
+.chapter .word-section .core-meaning { background: #f7f9fc; border-left-color: #8cabca; }
+.chapter .word-section .explain-note { background: #f8fafc; border-left-color: #98b3cb; }
+.chapter .word-section .quote-panel { background: #f9fafc; border-left-color: #91aecc; }
+.chapter .word-section .relation-diagram { background: #f9fbfd; }
+@media(max-width:790px) {
+  .chapter .word-section { margin: 31px -4px 39px; padding: 0 16px 20px; border-radius: 13px; }
+  .chapter .word-section + .word-section { margin-top: 41px; }
+  .chapter .word-section > .word-heading {
+    padding: 15px 16px 16px;
+    margin: 0 -16px 19px;
+    font-size: 19px;
+    line-height: 1.5;
+  }
+  .chapter .word-section > .word-heading::before {
+    font-size: 9px;
+    padding: 2px 6px;
+    margin-right: 7px;
+  }
+}
+@media print {
+  .chapter .word-section { break-inside: auto; box-shadow: none; margin-top: 20px; margin-bottom: 25px; }
+  .chapter .word-section > .word-heading { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+}
+
+/* Book extensions and typography layer.
+   Provides layout enhancements, note hierarchy styling,
+   and responsive UI controls. */
+
+/* Full-book anchors jump immediately */
+html {
+  scroll-behavior: auto !important;
+}
+
+/* ---- Entry typography ---- */
+.chapter .vocab-meaning-line {
+  display: block;
+  margin: 0.12em 0;
+}
+.chapter .vocab-meaning-line.vocab-new-pos {
+  margin-top: 0.72em;
+}
+.chapter .vocab-pos-only {
+  margin-top: 0.72em;
+  margin-bottom: 0.18em;
+  font-weight: 600;
+}
+.chapter .vocab-pos {
+  display: inline-block;
+  width: 3.2em;
+  box-sizing: border-box;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.chapter .vocab-no {
+  display: inline-block;
+  margin-right: 0.08em;
+  font-size: 0.78em;
+  line-height: 1;
+  vertical-align: 0.08em;
+}
+
+/* ---- Unit / word-group hierarchy (same blue system as the approved CSS) ---- */
+.unit-heading {
+  margin: 42px 0 20px;
+  padding: 0 0 11px;
+  color: var(--blue-900);
+  font-size: 30px;
+  font-weight: 800;
+  line-height: 1.3;
+  letter-spacing: -.035em;
+  border-bottom: 2px solid var(--blue-300);
+}
+.unit-heading:first-of-type {
+  margin-top: 6px;
+}
+/* Restart WORD 01 at each P, matching the approved P46 card reference. */
+.chapter {
+  counter-reset: lesson-word;
+}
+.group-heading {
+  margin: 32px 0 14px;
+  padding: 0 0 8px;
+  color: var(--blue-900);
+  font-size: 19px;
+  font-weight: 780;
+  line-height: 1.5;
+  letter-spacing: -.02em;
+  border-bottom: 1px solid var(--blue-300);
+}
+
+/* ---- Source note under each P title ---- */
+.p-source {
+  margin: 0 0 13px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+/* ---- Small labels inside core meaning / example / warning panels ---- */
+.section-label {
+  margin: 0 0 6px;
+  color: var(--blue-700);
+  font-size: 12px;
+  font-weight: 760;
+  letter-spacing: .02em;
+}
+.important-note .section-label {
+  color: #8a5a31;
+}
+
+/* ---- Text relationship panel: the formal note has no SVG node data ---- */
+.relation-diagram p,
+.relation-diagram li {
+  font-size: 14px;
+}
+.relation-diagram > p:first-of-type {
+  margin-top: 0;
+}
+.relation-diagram ul {
+  margin: 8px 0;
+}
+
+/* ---- Example blockquotes live inside the approved quote panel ---- */
+.quote-panel blockquote {
+  margin: 8px 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+.quote-panel blockquote p {
+  margin: 6px 0;
+}
+
+/* ---- 我的补充: secondary, clearly weaker than the word cards ---- */
+.personal-note {
+  margin: 22px 0 4px;
+  padding: 11px 15px;
+  border: 1px dashed #cfdae5;
+  border-left: 3px solid #9db6cc;
+  border-radius: 0 9px 9px 0;
+  background: #fbfcfd;
+  color: #46566a;
+  font-size: 14px;
+}
+.personal-note h3 {
+  margin: 0 0 5px;
+  color: #52677d;
+  font-size: 14px;
+  font-weight: 750;
+  letter-spacing: .02em;
+}
+.personal-note p,
+.personal-note li {
+  font-size: 14px;
+}
+
+/* ---- Fenced code blocks from the formal notes ---- */
+.code-panel {
+  margin: 14px 0;
+  padding: 14px 16px;
+  border: 1px solid #e4e9ef;
+  border-radius: 10px;
+  background: #f8f9fb;
+  color: #2b3c4e;
+  font-family: ui-monospace, "Cascadia Code", Consolas, monospace;
+  font-size: 13px;
+  line-height: 1.65;
+  white-space: pre-wrap;
+  overflow-x: auto;
+}
+
+@media (max-width: 790px) {
+  html,
+  body {
+    width: 100%;
+    max-width: 100%;
+  }
+  .app,
+  .main-wrap,
+  .book,
+  .book-content,
+  .chapter,
+  .word-section,
+  .relation-diagram,
+  .table-scroll {
+    max-width: 100%;
+    min-width: 0;
+  }
+  .book {
+    width: 100%;
+  }
+  .word-section {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .chapter table {
+    min-width: 520px;
+  }
+  .table-scroll {
+    overflow-x: auto;
+  }
+  .chapter-heading,
+  .word-heading,
+  .p-source,
+  .section-label,
+  .relation-diagram p,
+  .relation-diagram li {
+    overflow-wrap: anywhere;
+  }
+  .unit-heading {
+    margin-top: 30px;
+    font-size: 24px;
+  }
+  .group-heading {
+    margin-top: 25px;
+    font-size: 17px;
+  }
+  .p-source {
+    font-size: 12px;
+  }
+}
+
+/* Reader layer: pages, three-level TOC, search, bookmarks, notes.
+   Uses the approved blue variables from book_blue.css. */
+
+[hidden] {
+  display: none !important;
+}
+
+.app {
+  transition: grid-template-columns .2s ease;
+}
+.app.sidebar-collapsed {
+  grid-template-columns: 0 minmax(0, 1fr);
+}
+.app.sidebar-collapsed .sidebar {
+  visibility: hidden;
+  opacity: 0;
+  padding-right: 0;
+  padding-left: 0;
+  border-right: 0;
+  overflow: hidden;
+}
+
+/* ---- top bar ---- */
+.reader-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 45;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  max-width: 990px;
+  margin: 0 auto;
+  padding: 9px 18px;
+  background: rgba(255, 255, 255, .96);
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(10px);
+}
+.reader-topbar .tb-menu {
+  display: inline-flex;
+}
+.tb-title {
+  min-width: 0;
+  line-height: 1.35;
+}
+.tb-title b {
+  display: block;
+  color: var(--blue-900);
+  font-size: 14px;
+  letter-spacing: -.01em;
+}
+.tb-title span {
+  display: block;
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 11px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.tb-actions {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+  pointer-events: auto;
+}
+.tb-btn {
+  position: relative;
+  z-index: 1;
+  pointer-events: auto;
+}
+.tb-btn {
+  padding: 5px 10px;
+  border: 1px solid #d5e2ef;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--blue-900);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.tb-btn:hover {
+  border-color: var(--blue-500);
+  background: var(--blue-050);
+}
+.tb-btn.continue {
+  border-color: #b9d0e4;
+  background: var(--blue-100);
+}
+.tb-count {
+  display: inline-block;
+  min-width: 15px;
+  margin-left: 2px;
+  padding: 0 4px;
+  border-radius: 999px;
+  background: var(--blue-700);
+  color: #fff;
+  font-size: 10px;
+  line-height: 15px;
+  text-align: center;
+}
+
+/* ---- pages ---- */
+.reader-book {
+  margin-top: 0;
+}
+.reader-page {
+  display: block;
+}
+html.js .reader-page {
+  display: none;
+}
+html.js .reader-page.active {
+  display: block;
+}
+.reader-page.chapter {
+  border-top: 0;
+  padding: 18px 36px 30px;
+  scroll-margin-top: 70px;
+}
+.page-meta {
+  margin: 4px 0 7px;
+  color: var(--blue-700);
+  font-size: 12px;
+  font-weight: 750;
+  letter-spacing: .04em;
+}
+.page-p-title {
+  margin: 0 0 17px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.6;
+}
+.page-body > :first-child {
+  margin-top: 0;
+}
+.reader-page .chapter-heading {
+  margin-top: 0;
+}
+.reader-page .word-section {
+  margin-top: 28px;
+}
+.reader-page .word-section + .word-section {
+  margin-top: 38px;
+}
+.reader-page .p-source {
+  margin-bottom: 17px;
+}
+.p-toc {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  margin: 14px 0 2px;
+  padding-top: 11px;
+  border-top: 1px solid #e3edf6;
+  font-size: 12px;
+}
+.p-toc strong {
+  width: 100%;
+  color: #526a80;
+  font-size: 11px;
+  letter-spacing: .04em;
+}
+.p-toc a {
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: var(--blue-050);
+  color: var(--blue-900);
+  font-weight: 650;
+}
+.p-toc a:hover {
+  background: var(--blue-100);
+}
+.reader-page .word-section > blockquote {
+  margin: 16px 0;
+  padding: 13px 16px;
+  border-left: 3px solid #8fb4d4;
+  border-radius: 0 10px 10px 0;
+  background: #f7fafc;
+  color: #33485c;
+  font-size: 14px;
+  line-height: 1.8;
+}
+.reader-page .word-section > blockquote p {
+  margin: 0 0 7px;
+}
+.reader-page .word-section > blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+/* ---- cover ---- */
+.cover-page .hero {
+  border-radius: 0;
+}
+.cover-page .book-content {
+  padding-top: 8px;
+}
+.cover-hint {
+  margin: 20px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+.cover-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin: 22px 0 6px;
+}
+.main-action {
+  padding: 8px 16px;
+  border: 1px solid var(--blue-700);
+  border-radius: 999px;
+  background: var(--blue-700);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 750;
+  cursor: pointer;
+}
+.main-action.ghost {
+  background: #fff;
+  color: var(--blue-900);
+  border-color: #cbdceb;
+}
+.main-action:hover {
+  filter: brightness(.98);
+}
+
+/* ---- page navigation ---- */
+.page-nav {
+  position: sticky;
+  bottom: 0;
+  z-index: 35;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  max-width: 990px;
+  margin: 0 auto;
+  padding: 9px 18px calc(9px + env(safe-area-inset-bottom));
+  background: rgba(255, 255, 255, .96);
+  border-top: 1px solid var(--line);
+  backdrop-filter: blur(10px);
+}
+.page-nav button {
+  padding: 6px 13px;
+  border: 1px solid #d5e2ef;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--blue-900);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.page-nav button:disabled {
+  opacity: .35;
+  cursor: default;
+}
+.page-indicator {
+  margin: 0 auto;
+  color: var(--muted);
+  font-size: 12px;
+  text-align: center;
+}
+
+/* ---- three-level TOC ---- */
+.side-caption {
+  margin-top: 2px;
+}
+.toc-unit,
+.toc-p {
+  margin: 3px 0;
+}
+.toc-unit > summary,
+.toc-p > summary {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  list-style: none;
+  border-radius: 8px;
+  cursor: pointer;
+  user-select: none;
+}
+.toc-unit > summary::-webkit-details-marker,
+.toc-p > summary::-webkit-details-marker {
+  display: none;
+}
+.toc-unit > summary {
+  padding: 8px 9px;
+  color: #34485d;
+  font-size: 13px;
+  font-weight: 780;
+}
+.toc-unit > summary:hover,
+.toc-unit[open] > summary {
+  background: var(--blue-100);
+  color: var(--blue-900);
+}
+.toc-p > summary {
+  padding: 5px 8px 5px 17px;
+  color: #4f6072;
+  font-size: 12px;
+  font-weight: 650;
+}
+.toc-p > summary:hover,
+.toc-p[open] > summary {
+  color: var(--blue-900);
+  background: var(--blue-050);
+}
+.toc-unit > summary::after,
+.toc-p > summary::after {
+  content: "▾";
+  margin-left: auto;
+  color: #8ca1b4;
+  font-size: 10px;
+  transition: transform .15s;
+}
+.toc-unit[open] > summary::after,
+.toc-p[open] > summary::after {
+  transform: rotate(180deg);
+}
+.toc-unit-body {
+  margin: 1px 0 6px 4px;
+  padding-left: 5px;
+  border-left: 1px solid #e4edf4;
+}
+.toc-p-body {
+  margin: 2px 0 6px 18px;
+  padding-left: 22px;
+}
+.toc-group {
+  margin: 3px 0 7px;
+}
+.toc-group-details {
+  margin: 2px 0 2px 26px;
+}
+.toc-group-details > summary {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding-left: 8px;
+  list-style: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.toc-group-details > summary::-webkit-details-marker {
+  display: none;
+}
+.toc-group-details > summary::after {
+  content: "▾";
+  margin-right: 5px;
+  color: #8ca1b4;
+  font-size: 9px;
+  transition: transform .15s;
+}
+.toc-group-details[open] > summary::after {
+  transform: rotate(180deg);
+}
+.toc-group-details > summary:hover,
+.toc-group-details[open] > summary {
+  background: var(--blue-050);
+}
+.toc-page {
+  display: block;
+  flex: 1;
+  min-width: 0;
+  padding: 4px 6px;
+  border-radius: 6px;
+  color: #536679;
+  font-size: 11.5px;
+  line-height: 1.45;
+}
+.toc-page:hover,
+.toc-page.active {
+  background: var(--blue-100);
+  color: var(--blue-900);
+  font-weight: 750;
+}
+.toc-intro {
+  display: block;
+  margin: 1px 0 2px 6px;
+  padding: 3px 8px;
+  border-left: 2px solid #d6e4ef;
+  border-radius: 0 5px 5px 0;
+  color: #6d8092;
+  font-size: 10.5px;
+}
+.toc-intro:hover {
+  border-left-color: var(--blue-500);
+  background: var(--blue-050);
+  color: var(--blue-900);
+}
+.toc-words {
+  margin: 2px 0 2px 8px;
+  padding-left: 7px;
+  border-left: 1px solid #e2ebf3;
+}
+.toc-word {
+  display: inline-block;
+  margin: 1px 3px 1px 0;
+  padding: 1px 5px;
+  border-radius: 5px;
+  color: #687a8c;
+  font-family: ui-monospace, "Cascadia Code", Consolas, monospace;
+  font-size: 10.5px;
+}
+.toc-word:hover,
+.toc-word.active {
+  background: var(--blue-100);
+  color: var(--blue-900);
+  font-weight: 750;
+}
+
+/* ---- search / bookmarks / data overlays ---- */
+.reader-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: max(18px, 5vh) 16px 24px;
+  background: rgba(18, 34, 52, .32);
+}
+.reader-panel {
+  width: min(720px, 100%);
+  max-height: min(82vh, 780px);
+  overflow: auto;
+  padding: 18px 20px 20px;
+  border: 1px solid #dce7f0;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 20px 60px rgba(28, 55, 82, .18);
+}
+.panel-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.panel-head h2 {
+  margin: 0;
+  color: var(--blue-900);
+  font-size: 18px;
+  letter-spacing: -.02em;
+}
+.panel-head .close-btn {
+  margin-left: auto;
+  padding: 4px 9px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+  color: #5e7083;
+  cursor: pointer;
+}
+.panel-note {
+  margin: 0 0 12px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.65;
+}
+.search-input {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1px solid #cbdceb;
+  border-radius: 10px;
+  outline: none;
+  color: var(--ink);
+  font: inherit;
+  font-size: 16px;
+  background: #fbfdff;
+}
+.search-input:focus {
+  border-color: var(--blue-500);
+  box-shadow: 0 0 0 3px #789dc22b;
+}
+.search-results {
+  margin-top: 12px;
+}
+.search-empty {
+  padding: 18px 4px;
+  color: var(--muted);
+  font-size: 13px;
+  text-align: center;
+}
+.search-result {
+  display: block;
+  width: 100%;
+  margin: 6px 0;
+  padding: 10px 12px;
+  border: 1px solid #e4edf4;
+  border-radius: 10px;
+  background: #fff;
+  color: var(--ink);
+  text-align: left;
+  cursor: pointer;
+}
+.search-result:hover,
+.search-result:focus-visible {
+  border-color: #b8d0e3;
+  background: var(--blue-050);
+  outline: none;
+}
+.sr-title {
+  display: block;
+  color: var(--blue-900);
+  font-size: 14px;
+  font-weight: 780;
+}
+.sr-meta {
+  display: block;
+  margin: 2px 0 4px;
+  color: #697b8d;
+  font-size: 11px;
+}
+.sr-snippet {
+  display: block;
+  color: #405164;
+  font-size: 12px;
+  line-height: 1.55;
+}
+.sr-snippet mark {
+  padding: 0 2px;
+  background: #ffe9b8;
+  color: inherit;
+}
+.bookmark-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 6px 0;
+  padding: 9px 10px;
+  border: 1px solid #e4edf4;
+  border-radius: 9px;
+}
+.bookmark-open {
+  min-width: 0;
+  flex: 1;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  text-align: left;
+  cursor: pointer;
+}
+.bookmark-open b {
+  display: block;
+  color: var(--blue-900);
+  font-size: 14px;
+}
+.bookmark-open small {
+  display: block;
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 11px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.bookmark-remove,
+.data-btn {
+  padding: 5px 10px;
+  border: 1px solid #d7e4ef;
+  border-radius: 8px;
+  background: #fff;
+  color: #566b7e;
+  font-size: 12px;
+  cursor: pointer;
+}
+.bookmark-remove:hover,
+.data-btn:hover {
+  background: #f6f9fc;
+}
+.data-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 10px 0;
+}
+.data-btn.primary {
+  border-color: var(--blue-700);
+  background: var(--blue-700);
+  color: #fff;
+}
+.data-btn.danger {
+  border-color: #e2c8c8;
+  color: #9b3f3f;
+}
+.data-status {
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+/* ---- per-word tools, key mark, note ---- */
+.word-section {
+  position: relative;
+  scroll-margin-top: 78px;
+}
+.chapter .word-section > .word-heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-right: 104px;
+}
+.word-diff {
+  min-width: 0;
+  margin-left: auto;
+  margin-right: 96px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .13);
+  color: #fff;
+  font-size: 11.5px;
+  font-weight: 650;
+  line-height: 1.4;
+  text-align: right;
+}
+.word-tools {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  z-index: 3;
+  display: flex;
+  gap: 4px;
+}
+.word-tool {
+  min-width: 25px;
+  height: 25px;
+  padding: 0 6px;
+  border: 1px solid rgba(255, 255, 255, .5);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, .14);
+  color: #fff;
+  font-size: 11px;
+  line-height: 23px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.word-tool:hover,
+.word-tool.on {
+  background: #fff;
+  color: var(--blue-900);
+}
+.word-section.is-key {
+  border-color: #d3a56d;
+  box-shadow: 0 0 0 3px rgba(211, 165, 109, .14), 0 8px 22px rgba(32, 70, 110, .075);
+}
+.word-section.is-key .word-heading {
+  border-bottom-color: #e1bc8d;
+}
+.word-note-display {
+  margin: 12px 0 4px;
+  padding: 9px 12px;
+  border-left: 3px solid #d3a56d;
+  border-radius: 0 8px 8px 0;
+  background: #fffaf2;
+  color: #56493b;
+  font-size: 13px;
+  line-height: 1.65;
+}
+.word-note-display::before {
+  content: "我的批注：";
+  color: #9a6b3e;
+  font-weight: 750;
+}
+.word-note {
+  margin: 12px 0 4px;
+  padding: 10px;
+  border: 1px solid #e1e9f0;
+  border-radius: 9px;
+  background: #fbfcfd;
+}
+.word-note textarea {
+  display: block;
+  width: 100%;
+  min-height: 62px;
+  padding: 8px 10px;
+  border: 1px solid #d6e2ec;
+  border-radius: 7px;
+  outline: none;
+  color: var(--ink);
+  font: inherit;
+  font-size: 13px;
+  line-height: 1.6;
+  resize: vertical;
+  background: #fff;
+}
+.word-note textarea:focus {
+  border-color: var(--blue-500);
+}
+.word-note-actions {
+  display: flex;
+  gap: 6px;
+  margin-top: 6px;
+}
+.word-note-actions button {
+  padding: 4px 9px;
+  border: 1px solid #d7e3ed;
+  border-radius: 6px;
+  background: #fff;
+  color: #52677b;
+  font-size: 11px;
+  cursor: pointer;
+}
+.word-note-actions button.primary {
+  border-color: var(--blue-700);
+  background: var(--blue-700);
+  color: #fff;
+}
+.word-section.flash {
+  animation: reader-flash 1.2s ease-out;
+}
+@keyframes reader-flash {
+  0% { box-shadow: 0 0 0 0 rgba(59, 101, 145, .45); }
+  100% { box-shadow: 0 0 0 9px rgba(59, 101, 145, 0); }
+}
+
+/* ---- mobile ---- */
+@media (max-width: 790px) {
+  .sidebar.open {
+    z-index: 40;
+  }
+  .reader-topbar {
+    padding: 8px 10px;
+    gap: 6px;
+  }
+  .reader-topbar .tb-menu {
+    display: inline-flex;
+  }
+  .tb-title b {
+    font-size: 12px;
+  }
+  .tb-title span {
+    max-width: 115px;
+    font-size: 10px;
+  }
+  .tb-actions {
+    gap: 4px;
+  }
+  .tb-btn {
+    padding: 5px 8px;
+    font-size: 11px;
+  }
+  .tb-btn .tb-label {
+    display: none;
+  }
+  .tb-title {
+    flex: 1;
+  }
+  .reader-page.chapter {
+    padding: 14px 14px 20px;
+  }
+  .reader-page .word-section > blockquote {
+    padding: 11px 12px;
+    font-size: 13.5px;
+  }
+  .page-nav {
+    padding: 8px 10px calc(8px + env(safe-area-inset-bottom));
+  }
+  .reader-panel {
+    max-height: 86vh;
+    padding: 15px 14px 17px;
+  }
+  .word-section {
+    scroll-margin-top: 66px;
+  }
+  .word-diff {
+    max-width: 40%;
+    margin-right: 86px;
+    font-size: 9.5px;
+    line-height: 1.35;
+  }
+  .word-tools {
+    top: 8px;
+    right: 8px;
+    gap: 3px;
+  }
+  .word-tool {
+    min-width: 23px;
+    height: 23px;
+    padding: 0 4px;
+    font-size: 10px;
+    line-height: 21px;
+  }
+  .word-heading {
+    padding-right: 92px;
+  }
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <div class="book-icon">▤</div>
+      <div><b>知识 · 离线教辅</b><small>MARKDOWN → READER</small></div>
+    </div>
+    <div class="side-caption">Contents / 目录</div>
+    <nav class="side-toc" id="side-toc">
+<details class="toc-unit" data-unit="微型阳台观测手册" open>
+<summary><span class="unit-badge">章</span><span class="unit-title">微型阳台观测手册</span></summary>
+<details class="toc-p" data-p="傍晚观察">
+<summary><a class="toc-page" href="#page-sec-傍晚观察" data-page="page-sec-傍晚观察">傍晚观察</a></summary>
+<a class="toc-word" href="#word-第一片新叶" data-page="page-sec-傍晚观察" data-word="word-第一片新叶">第一片新叶</a>
+</details>
+<details class="toc-p" data-p="晨间检查">
+<summary><a class="toc-page" href="#page-sec-晨间检查" data-page="page-sec-晨间检查">晨间检查</a></summary>
+<a class="toc-word" href="#word-露珠图谱" data-page="page-sec-晨间检查" data-word="word-露珠图谱">露珠图谱</a>
+</details>
+</details>
+</nav>
+    <div class="side-footer"><b>阅读数据</b><br>书签、重点、批注和阅读位置只保存在本机浏览器；重新构建不会清空，建议定期在“数据”中导出备份。</div>
+  </aside>
+  <div class="main-wrap">
+    <header class="reader-topbar">
+      <button type="button" class="tb-btn tb-menu" id="menu-btn" aria-label="展开或收起目录">☰</button>
+      <div class="tb-title"><b>微型阳台观测手册</b><span id="topbar-crumb">封面</span></div>
+      <div class="tb-actions">
+        <button type="button" class="tb-btn continue" id="continue-btn" hidden>继续阅读</button>
+        <button type="button" class="tb-btn" id="search-open"><span class="tb-label">搜索</span> ⌕</button>
+        <button type="button" class="tb-btn" id="bookmarks-open"><span class="tb-label">书签</span><span class="tb-count" id="bookmark-count">0</span></button>
+        <button type="button" class="tb-btn" id="data-open"><span class="tb-label">数据</span> ⋯</button>
+        <button type="button" class="tb-btn" id="cover-btn"><span class="tb-label">封面</span> ⌂</button>
+      </div>
+    </header>
+    <main id="book" class="book reader-book">
+      <div id="pages">
+    <section class="reader-page cover-page active" id="page-cover" data-page-id="cover">
+      <header class="hero">
+        <div class="hero-kicker">OFFLINE INTERACTIVE E-BOOK</div>
+        <h1>微型阳台观测手册</h1>
+        <div class="pill-row">
+          <span class="pill">1 个章节</span>
+          <span class="pill">2 个阅读单元</span>
+          <span class="pill">2 个知识卡片</span>
+          <span class="pill">零依赖单文件</span>
+        </div>
+        <p class="hero-base">从 Markdown 自动构建 · 本地浏览器双击即读 · 2026-11-18</p>
+      </header>
+      <div class="book-content">
+        <div class="intro-note"><p>本电子书完全运行在本地浏览器，无须后台服务。书签、批注和阅读进度保存在本机 LocalStorage 中。</p></div>
+        <div class="cover-actions"><button type="button" class="main-action" id="start-reading">开始阅读</button></div>
+      </div>
+    </section>
+    
+<section class="reader-page" id="page-sec-傍晚观察" data-page-id="page-sec-傍晚观察" data-unit="微型阳台观测手册" data-p="傍晚观察" data-crumb="微型阳台观测手册 · 傍晚观察">
+<div class="page-meta">微型阳台观测手册</div>
+<h2 class="page-p-title chapter-heading">傍晚观察</h2>
+<div class="section-overview">
+
+</div>
+<section class="entry word-section" id="word-第一片新叶" data-word="第一片新叶">
+<h3 class="word-heading">第一片新叶</h3>
+<p><strong>观测顺序</strong>从最靠窗的花盆开始。记录叶尖颜色，再数新叶。</p>
+<blockquote><p>每天在相近的光线下观察，便于比较。</p></blockquote>
+<ul>
+<li>记录天气</li>
+<li>检查叶缘</li>
+</ul>
+</section>
+</section>
+<section class="reader-page" id="page-sec-晨间检查" data-page-id="page-sec-晨间检查" data-unit="微型阳台观测手册" data-p="晨间检查" data-crumb="微型阳台观测手册 · 晨间检查">
+<div class="page-meta">微型阳台观测手册</div>
+<h2 class="page-p-title chapter-heading">晨间检查</h2>
+<div class="section-overview">
+
+</div>
+<section class="entry word-section" id="word-露珠图谱" data-word="露珠图谱">
+<h3 class="word-heading">露珠图谱</h3>
+<p>用 <em>晨光</em> 和 <code>叶面方向</code> 描述水滴。检索词是<strong>露珠</strong>。</p>
+<table>
+<tr><th>位置</th><th>记录</th></tr>
+<tr><td>叶尖</td><td>一滴</td></tr>
+<tr><td>叶脉</td><td>干燥</td></tr>
+</table>
+<ol>
+<li>看叶尖。</li>
+<li>比较叶脉。</li>
+</ol>
+</section>
+</section></div>
+      <footer class="bottom-note">知识教辅 · 按节分页阅读 · 原始 Markdown 保持不变</footer>
+    </main>
+    <nav class="page-nav" aria-label="翻页">
+      <button type="button" id="page-prev">上一页</button>
+      <span class="page-indicator" id="page-indicator" hidden>1 / 1</span>
+      <button type="button" id="page-next">下一页</button>
+    </nav>
+  </div>
+</div>
+
+<div class="reader-overlay" id="search-overlay" hidden>
+  <div class="reader-panel" role="dialog" aria-modal="true" aria-labelledby="search-title">
+    <div class="panel-head"><h2 id="search-title">全书搜索</h2><button type="button" class="close-btn" data-close="search">关闭</button></div>
+    <p class="panel-note">支持关键词检索；结果显示所在章节与知识点，点击直达对应位置。</p>
+    <input class="search-input" id="search-input" type="search" placeholder="输入关键词，例如 并发、锁、机制" autocomplete="off">
+    <div class="search-results" id="search-results"></div>
+  </div>
+</div>
+
+<div class="reader-overlay" id="bookmarks-overlay" hidden>
+  <div class="reader-panel" role="dialog" aria-modal="true" aria-labelledby="bookmarks-title">
+    <div class="panel-head"><h2 id="bookmarks-title">知识书签</h2><button type="button" class="close-btn" data-close="bookmarks">关闭</button></div>
+    <p class="panel-note">书签按知识点保存；重新构建后仍会保留。</p>
+    <div id="bookmark-list"></div>
+  </div>
+</div>
+
+<div class="reader-overlay" id="data-overlay" hidden>
+  <div class="reader-panel" role="dialog" aria-modal="true" aria-labelledby="data-title">
+    <div class="panel-head"><h2 id="data-title">阅读数据与备份</h2><button type="button" class="close-btn" data-close="data">关闭</button></div>
+    <p class="panel-note">数据与 Markdown 完全分离，只保存在本机浏览器。更换浏览器或清理浏览器数据前，请先导出备份。</p>
+    <div class="data-row">
+      <button type="button" class="data-btn primary" id="data-export">导出备份</button>
+      <button type="button" class="data-btn" id="data-import">导入备份</button>
+      <input type="file" id="data-import-file" accept=".json,application/json" hidden>
+      <button type="button" class="data-btn danger" id="data-reset">清空本机数据</button>
+    </div>
+    <div class="data-status" id="data-status"></div>
+  </div>
+</div>
+
+<script>(function () {
+  "use strict";
+
+  var STORE_KEY = "markdownReader.v2";
+  var DEFAULT_STATE = {
+    version: 2,
+    lastPage: null,
+    bookmarks: {},
+    keyWords: {},
+    notes: {},
+  };
+
+  function $(sel, root) { return (root || document).querySelector(sel); }
+  function $$(sel, root) { return Array.prototype.slice.call((root || document).querySelectorAll(sel)); }
+  function escapeHtml(text) {
+    return String(text).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  }
+
+  function loadState() {
+    try {
+      var raw = localStorage.getItem(STORE_KEY);
+      if (!raw) return Object.assign({}, DEFAULT_STATE);
+      var parsed = JSON.parse(raw);
+      return {
+        version: 2,
+        lastPage: parsed.lastPage || null,
+        bookmarks: parsed.bookmarks && typeof parsed.bookmarks === "object" ? parsed.bookmarks : {},
+        keyWords: parsed.keyWords && typeof parsed.keyWords === "object" ? parsed.keyWords : {},
+        notes: parsed.notes && typeof parsed.notes === "object" ? parsed.notes : {},
+      };
+    } catch (e) {
+      return Object.assign({}, DEFAULT_STATE);
+    }
+  }
+
+  var state = loadState();
+  function saveState() {
+    try { localStorage.setItem(STORE_KEY, JSON.stringify(state)); } catch (e) { /* file:// or private mode */ }
+  }
+
+  var pages = $$(".reader-page");
+  var pageById = {};
+  pages.forEach(function (p) { pageById[p.id] = p; });
+  var wordEls = $$(".word-section");
+  var wordById = {};
+  wordEls.forEach(function (w) { wordById[w.id] = w; });
+
+  var currentPage = null;
+  var searchIndex = null;
+
+  var topbarCrumb = $("#topbar-crumb");
+  var pageIndicator = $("#page-indicator");
+  var prevBtn = $("#page-prev");
+  var nextBtn = $("#page-next");
+  var continueBtn = $("#continue-btn");
+  var bookmarkCount = $("#bookmark-count");
+  var searchOverlay = $("#search-overlay");
+  var searchInput = $("#search-input");
+  var searchResults = $("#search-results");
+  var bookmarksOverlay = $("#bookmarks-overlay");
+  var bookmarkList = $("#bookmark-list");
+  var dataOverlay = $("#data-overlay");
+  var dataStatus = $("#data-status");
+  var sidebar = $("#sidebar");
+
+  function pageMeta(page) {
+    return {
+      unit: page.dataset.unit || "",
+      p: page.dataset.p || "",
+      group: page.dataset.group || "",
+    };
+  }
+
+  function wordMeta(el) {
+    var page = el.closest(".reader-page");
+    return {
+      id: el.id,
+      word: ((el.querySelector(".word-heading") || {}).textContent || "").trim(),
+      pageId: page ? page.id : "",
+      unit: page ? (page.dataset.unit || "") : "",
+      p: page ? (page.dataset.p || "") : "",
+      group: page ? (page.dataset.group || "") : "",
+    };
+  }
+
+  function updateChrome() {
+    if (!currentPage) return;
+    var isCover = currentPage.id === "page-cover";
+    topbarCrumb.textContent = isCover
+      ? "封面"
+      : [currentPage.dataset.unit, currentPage.dataset.p].filter(Boolean).join(" · ");
+    var idx = pages.indexOf(currentPage);
+    pageIndicator.textContent = (idx + 1) + " / " + pages.length;
+    prevBtn.disabled = idx <= 0;
+    nextBtn.disabled = idx >= pages.length - 1;
+    var hasLast = state.lastPage && pageById[state.lastPage] && currentPage.id !== state.lastPage;
+    continueBtn.hidden = !hasLast;
+    if (hasLast) {
+      var lp = pageById[state.lastPage];
+      continueBtn.textContent = "继续阅读";
+      continueBtn.title = "继续阅读：" + [lp.dataset.unit, lp.dataset.p].filter(Boolean).join(" · ");
+    }
+    var count = Object.keys(state.bookmarks).filter(function (id) { return wordById[id]; }).length;
+    bookmarkCount.textContent = String(count);
+  }
+
+  function openToc(page, wordId) {
+    $$(".toc-unit, .toc-p, .toc-group-details").forEach(function (d) { d.open = false; });
+    $$(".toc-page, .toc-word").forEach(function (a) { a.classList.remove("active"); });
+    if (!page || page.id === "page-cover") return;
+    var p = page.dataset.p;
+    var pNode = p ? $('.toc-p[data-p="' + p + '"]') : null;
+    if (pNode) {
+      pNode.open = true;
+      var unit = pNode.closest(".toc-unit");
+      if (unit) unit.open = true;
+      var groupDetails = pNode.querySelector('.toc-group-details[data-page="' + page.id + '"]');
+      if (groupDetails) groupDetails.open = true;
+    }
+    var groupLink = $('.toc-page[data-page="' + page.id + '"]');
+    if (groupLink) groupLink.classList.add("active");
+    if (wordId) {
+      var wordLink = $('.toc-word[data-word="' + wordId + '"]');
+      if (wordLink) wordLink.classList.add("active");
+    }
+  }
+
+  function enhanceToc() {
+    $$(".toc-p").forEach(function (p) {
+      p.addEventListener("toggle", function () {
+        if (!p.open) return;
+        if (p.querySelector(".toc-group-details[open]")) return;
+        var firstGroup = p.querySelector(".toc-group-details");
+        if (firstGroup) firstGroup.open = true;
+      });
+    });
+    $$(".toc-group-link").forEach(function (a) {
+      a.addEventListener("click", function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        showPage(a.getAttribute("data-page"));
+      });
+    });
+  }
+
+  function showPage(id, wordId) {
+    var page = pageById[id];
+    if (wordId && wordById[wordId]) {
+      var wp = wordById[wordId].closest(".reader-page");
+      if (wp) page = wp;
+    }
+    if (!page) page = pageById["page-cover"] || pages[0];
+    if (!page) return;
+    pages.forEach(function (p) { p.classList.toggle("active", p === page); });
+    currentPage = page;
+    if (page.id !== "page-cover") {
+      state.lastPage = page.id;
+      saveState();
+    }
+    updateChrome();
+    openToc(page, wordId);
+    try { history.replaceState(null, "", "#" + page.id); } catch (e) { /* file:// */ }
+    window.scrollTo({ top: 0, behavior: "auto" });
+    if (wordId && wordById[wordId]) {
+      setTimeout(function () {
+        var el = wordById[wordId];
+        if (!el) return;
+        var bar = document.querySelector(".reader-topbar");
+        var offset = (bar ? bar.offsetHeight : 0) + 10;
+        var target = el.querySelector(".core-meaning") || el.querySelector(".word-note-display") || el;
+        var y = target.getBoundingClientRect().top + window.scrollY - offset;
+        window.scrollTo({ top: Math.max(0, y), behavior: "auto" });
+        el.classList.add("flash");
+        setTimeout(function () { el.classList.remove("flash"); }, 1300);
+      }, 30);
+    }
+    closeDrawers();
+    closeSidebar();
+  }
+
+  function closeSidebar() { sidebar.classList.remove("open"); }
+  function closeDrawers() {
+    [searchOverlay, bookmarksOverlay, dataOverlay].forEach(function (el) { if (el) el.hidden = true; });
+    closeSidebar();
+  }
+
+  function firstReadingPage() {
+    var first = pages.filter(function (p) { return p.id !== "page-cover"; })[0];
+    return first ? first.id : "page-cover";
+  }
+
+  /* ---- navigation ---- */
+  if (prevBtn) prevBtn.addEventListener("click", function () {
+    var idx = pages.indexOf(currentPage);
+    if (idx > 0) showPage(pages[idx - 1].id);
+  });
+  if (nextBtn) nextBtn.addEventListener("click", function () {
+    var idx = pages.indexOf(currentPage);
+    if (idx >= 0 && idx < pages.length - 1) showPage(pages[idx + 1].id);
+  });
+  if (continueBtn) continueBtn.addEventListener("click", function () {
+    if (state.lastPage && pageById[state.lastPage]) showPage(state.lastPage);
+  });
+  var coverBtn = $("#cover-btn");
+  if (coverBtn) coverBtn.addEventListener("click", function () { showPage("page-cover"); });
+  var startBtn = $("#start-reading");
+  if (startBtn) startBtn.addEventListener("click", function () { showPage(firstReadingPage()); });
+  var menuBtn = $("#menu-btn");
+  if (menuBtn) menuBtn.addEventListener("click", function () {
+    if (window.matchMedia && window.matchMedia("(max-width: 790px)").matches) {
+      sidebar.classList.toggle("open");
+    } else {
+      var app = document.querySelector(".app");
+      if (app) app.classList.toggle("sidebar-collapsed");
+    }
+  });
+
+  document.addEventListener("click", function (e) {
+    var target = e.target.closest("[data-page]");
+    if (!target) return;
+    var pageId = target.getAttribute("data-page");
+    if (!pageId || !pageById[pageId]) return;
+    e.preventDefault();
+    showPage(pageId, target.getAttribute("data-word") || null);
+  });
+
+  /* ---- search ---- */
+  function cleanText(root) {
+    var clone = root.cloneNode(true);
+    clone.querySelectorAll(".word-tools, .word-note, .word-note-display").forEach(function (el) { el.remove(); });
+    return clone.textContent || "";
+  }
+  function buildSearchIndex() {
+    if (searchIndex) return searchIndex;
+    var entries = { pages: [], words: [] };
+    pages.forEach(function (page) {
+      if (page.id === "page-cover") return;
+      var meta = pageMeta(page);
+      var heading = page.querySelector(".chapter-heading");
+      var title = heading ? heading.textContent.trim() : page.id;
+      var text = cleanText(page);
+      entries.pages.push({ id: page.id, title: title, text: text, lower: text.toLowerCase(), unit: meta.unit, p: meta.p, group: meta.group });
+      $$(".word-section", page).forEach(function (wordEl) {
+        var wm = wordMeta(wordEl);
+        var wt = cleanText(wordEl);
+        entries.words.push({ id: wm.id, word: wm.word, text: wt, lower: wt.toLowerCase(), pageId: page.id, unit: meta.unit, p: meta.p, group: meta.group });
+      });
+    });
+    searchIndex = entries;
+    return searchIndex;
+  }
+
+  function snippet(text, query) {
+    var lower = text.toLowerCase();
+    var at = lower.indexOf(query.toLowerCase());
+    if (at < 0) at = 0;
+    var start = Math.max(0, at - 34);
+    var end = Math.min(text.length, at + query.length + 64);
+    return (start > 0 ? "…" : "") + text.slice(start, end) + (end < text.length ? "…" : "");
+  }
+
+  function markedSnippet(text, query) {
+    var lower = text.toLowerCase();
+    var at = lower.indexOf(query.toLowerCase());
+    if (at < 0) return escapeHtml(text);
+    var before = text.slice(0, at);
+    var hit = text.slice(at, at + query.length);
+    var after = text.slice(at + query.length);
+    return escapeHtml(before) + "<mark>" + escapeHtml(hit) + "</mark>" + escapeHtml(after);
+  }
+
+  function resultButton(hit, kind) {
+    var btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "search-result";
+    btn.setAttribute("data-page", hit.pageId || hit.id);
+    if (kind === "word") btn.setAttribute("data-word", hit.id);
+    var title = document.createElement("span");
+    title.className = "sr-title";
+    title.textContent = kind === "word" ? hit.word : hit.title;
+    var meta = document.createElement("span");
+    meta.className = "sr-meta";
+    meta.textContent = [hit.unit, hit.p, hit.group].filter(Boolean).join(" · ");
+    var snip = document.createElement("span");
+    snip.className = "sr-snippet";
+    snip.innerHTML = markedSnippet(snippet(hit.text, currentQuery), currentQuery);
+    btn.appendChild(title);
+    btn.appendChild(meta);
+    btn.appendChild(snip);
+    return btn;
+  }
+
+  var currentQuery = "";
+  function runSearch() {
+    var query = searchInput.value.trim();
+    currentQuery = query;
+    searchResults.innerHTML = "";
+    if (!query) {
+      searchResults.innerHTML = '<div class="search-empty">输入英文或中文关键词，例如 novel、精确、保证。</div>';
+      return;
+    }
+    var idx = buildSearchIndex();
+    var tokens = query.toLowerCase().split(/\s+/).filter(Boolean);
+    var wordHits = idx.words.filter(function (w) {
+      return tokens.every(function (t) { return w.lower.indexOf(t) >= 0; });
+    });
+    var exact = query.toLowerCase();
+    wordHits.sort(function (a, b) {
+      function score(w) {
+        var word = (w.word || "").toLowerCase();
+        if (word === exact) return 0;
+        if (word.indexOf(exact) === 0) return 1;
+        if (word.indexOf(exact) >= 0) return 2;
+        return 3;
+      }
+      return score(a) - score(b) || a.word.localeCompare(b.word);
+    });
+    wordHits = wordHits.slice(0, 20);
+    var wordPageIds = {};
+    wordHits.forEach(function (w) { wordPageIds[w.pageId] = true; });
+    var pageHits = idx.pages.filter(function (p) {
+      if (wordPageIds[p.id]) return false;
+      return tokens.every(function (t) { return p.lower.indexOf(t) >= 0; });
+    }).slice(0, 15);
+    if (!wordHits.length && !pageHits.length) {
+      searchResults.innerHTML = '<div class="search-empty">没有找到匹配内容。</div>';
+      return;
+    }
+    wordHits.forEach(function (w) { searchResults.appendChild(resultButton(w, "word")); });
+    pageHits.forEach(function (p) { searchResults.appendChild(resultButton(p, "page")); });
+  }
+
+  function openSearch() {
+    buildSearchIndex();
+    searchOverlay.hidden = false;
+    if (searchInput.value.trim()) runSearch();
+    setTimeout(function () { searchInput.focus(); }, 20);
+  }
+  var searchOpen = $("#search-open");
+  if (searchOpen) searchOpen.addEventListener("click", openSearch);
+  if (searchInput) {
+    var searchTimer = null;
+    searchInput.addEventListener("input", function () {
+      clearTimeout(searchTimer);
+      searchTimer = setTimeout(runSearch, 80);
+    });
+    searchInput.addEventListener("keydown", function (e) {
+      if (e.key === "Enter") { clearTimeout(searchTimer); runSearch(); }
+    });
+  }
+
+  /* ---- bookmarks, key marks, notes ---- */
+  function applyWordState(meta) {
+    var el = wordById[meta.id];
+    if (!el) return;
+    var bookmark = $(".word-tool.bookmark", el);
+    var key = $(".word-tool.key", el);
+    var display = $(".word-note-display", el);
+    var note = state.notes[meta.id] || "";
+    if (bookmark) {
+      bookmark.textContent = state.bookmarks[meta.id] ? "★" : "☆";
+      bookmark.classList.toggle("on", !!state.bookmarks[meta.id]);
+      bookmark.title = state.bookmarks[meta.id] ? "取消书签" : "加入书签";
+    }
+    if (key) {
+      key.classList.toggle("on", !!state.keyWords[meta.id]);
+      key.title = state.keyWords[meta.id] ? "取消重点" : "标记重点";
+    }
+    el.classList.toggle("is-key", !!state.keyWords[meta.id]);
+    if (display) {
+      display.textContent = note;
+      display.hidden = !note;
+    }
+  }
+
+  function enhanceWord(el) {
+    if (el.dataset.enhanced) return;
+    el.dataset.enhanced = "1";
+    var meta = wordMeta(el);
+    var tools = document.createElement("div");
+    tools.className = "word-tools";
+    tools.innerHTML = '<button type="button" class="word-tool bookmark" title="加入书签">☆</button>' +
+      '<button type="button" class="word-tool key" title="标记重点">重点</button>' +
+      '<button type="button" class="word-tool note" title="写批注">批注</button>';
+    el.appendChild(tools);
+
+    var display = document.createElement("div");
+    display.className = "word-note-display";
+    display.hidden = true;
+    var editor = document.createElement("div");
+    editor.className = "word-note";
+    editor.hidden = true;
+    editor.innerHTML = '<textarea placeholder="写一句短批注，只保存在本机阅读数据中。"></textarea>' +
+      '<div class="word-note-actions"><button type="button" class="primary note-save">保存</button>' +
+      '<button type="button" class="note-cancel">取消</button>' +
+      '<button type="button" class="note-delete">删除</button></div>';
+    var heading = el.querySelector(".word-heading");
+    if (heading && heading.nextSibling) {
+      el.insertBefore(display, heading.nextSibling);
+      el.insertBefore(editor, heading.nextSibling);
+    } else {
+      el.appendChild(display);
+      el.appendChild(editor);
+    }
+
+    var bookmark = $(".bookmark", tools);
+    var key = $(".key", tools);
+    var noteBtn = $(".note", tools);
+    var textarea = editor.querySelector("textarea");
+
+    bookmark.addEventListener("click", function () {
+      if (state.bookmarks[meta.id]) delete state.bookmarks[meta.id];
+      else state.bookmarks[meta.id] = meta;
+      saveState();
+      applyWordState(meta);
+      renderBookmarks();
+      updateChrome();
+    });
+    key.addEventListener("click", function () {
+      if (state.keyWords[meta.id]) delete state.keyWords[meta.id];
+      else state.keyWords[meta.id] = true;
+      saveState();
+      applyWordState(meta);
+    });
+    noteBtn.addEventListener("click", function () {
+      editor.hidden = false;
+      textarea.value = state.notes[meta.id] || "";
+      textarea.focus();
+    });
+    editor.querySelector(".note-cancel").addEventListener("click", function () { editor.hidden = true; });
+    editor.querySelector(".note-save").addEventListener("click", function () {
+      var value = textarea.value.trim();
+      if (value) state.notes[meta.id] = value;
+      else delete state.notes[meta.id];
+      saveState();
+      applyWordState(meta);
+      editor.hidden = true;
+    });
+    editor.querySelector(".note-delete").addEventListener("click", function () {
+      delete state.notes[meta.id];
+      saveState();
+      applyWordState(meta);
+      textarea.value = "";
+      editor.hidden = true;
+    });
+
+    applyWordState(meta);
+  }
+
+  function renderBookmarks() {
+    if (!bookmarkList) return;
+    var items = Object.keys(state.bookmarks).map(function (id) { return state.bookmarks[id]; });
+    items = items.filter(function (b) { return b && wordById[b.id]; });
+    bookmarkList.innerHTML = "";
+    if (!items.length) {
+      bookmarkList.innerHTML = '<div class="search-empty">还没有书签。点词条右上角的 ☆ 即可收藏。</div>';
+    } else {
+      items.forEach(function (b) {
+        var row = document.createElement("div");
+        row.className = "bookmark-item";
+        var open = document.createElement("button");
+        open.type = "button";
+        open.className = "bookmark-open";
+        open.setAttribute("data-page", b.pageId);
+        open.setAttribute("data-word", b.id);
+        open.innerHTML = "<b>" + escapeHtml(b.word) + "</b><small>" +
+          escapeHtml([b.unit, b.p, b.group].filter(Boolean).join(" · ")) + "</small>";
+        var remove = document.createElement("button");
+        remove.type = "button";
+        remove.className = "bookmark-remove";
+        remove.textContent = "移除";
+        remove.addEventListener("click", function () {
+          delete state.bookmarks[b.id];
+          saveState();
+          applyWordState(b);
+          renderBookmarks();
+          updateChrome();
+        });
+        row.appendChild(open);
+        row.appendChild(remove);
+        bookmarkList.appendChild(row);
+      });
+    }
+    updateChrome();
+  }
+
+  /* ---- data backup / restore ---- */
+  function refreshDataStatus() {
+    if (!dataStatus) return;
+    dataStatus.textContent = "数据只保存在本机浏览器，与 Markdown 分离。书签 " +
+      Object.keys(state.bookmarks).length + " 个，重点 " +
+      Object.keys(state.keyWords).length + " 个，批注 " + Object.keys(state.notes).length + " 条。";
+  }
+  function openData() {
+    refreshDataStatus();
+    dataOverlay.hidden = false;
+  }
+  function downloadData() {
+    var docTitle = (document.title || "ebook").replace(/[^\w\u4e00-\u9fff]+/g, "-").replace(/^-+|-+$/g, "") || "ebook";
+    var payload = { app: "Markdown·电子教辅", title: docTitle, version: 2, exportedAt: new Date().toISOString(), state: state };
+    var blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement("a");
+    var d = new Date();
+    var stamp = d.getFullYear() + String(d.getMonth() + 1).padStart(2, "0") + String(d.getDate()).padStart(2, "0");
+    a.href = url;
+    a.download = docTitle + "-阅读数据-" + stamp + ".json";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+  }
+  function importData(file) {
+    var reader = new FileReader();
+    reader.onload = function () {
+      try {
+        var data = JSON.parse(reader.result);
+        if (!data || !data.state || typeof data.state !== "object") throw new Error("bad file");
+        state = {
+          version: 2,
+          lastPage: data.state.lastPage || null,
+          bookmarks: data.state.bookmarks || {},
+          keyWords: data.state.keyWords || {},
+          notes: data.state.notes || {},
+        };
+        saveState();
+        location.reload();
+      } catch (e) {
+        alert("导入失败：文件不是本阅读器的备份。");
+      }
+    };
+    reader.readAsText(file);
+  }
+  function resetData() {
+    if (!window.confirm("清空本机阅读数据（书签、重点、批注、阅读位置）？Markdown 不会受影响。")) return;
+    try { localStorage.removeItem(STORE_KEY); } catch (e) { /* ignore */ }
+    location.reload();
+  }
+
+  var dataOpen = $("#data-open");
+  if (dataOpen) dataOpen.addEventListener("click", openData);
+  var exportBtn = $("#data-export");
+  if (exportBtn) exportBtn.addEventListener("click", downloadData);
+  var importBtn = $("#data-import");
+  var importInput = $("#data-import-file");
+  if (importBtn && importInput) {
+    importBtn.addEventListener("click", function () { importInput.click(); });
+    importInput.addEventListener("change", function () {
+      if (importInput.files && importInput.files[0]) importData(importInput.files[0]);
+      importInput.value = "";
+    });
+  }
+  var resetBtn = $("#data-reset");
+  if (resetBtn) resetBtn.addEventListener("click", resetData);
+
+  var bookmarksOpen = $("#bookmarks-open");
+  if (bookmarksOpen) bookmarksOpen.addEventListener("click", function () {
+    renderBookmarks();
+    bookmarksOverlay.hidden = false;
+  });
+
+  $$("[data-close]").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var id = btn.getAttribute("data-close");
+      var el = document.getElementById(id + "-overlay");
+      if (el) el.hidden = true;
+    });
+  });
+  $$(".reader-overlay").forEach(function (el) {
+    el.addEventListener("click", function (e) { if (e.target === el) el.hidden = true; });
+  });
+
+  document.addEventListener("keydown", function (e) {
+    var tag = (e.target && e.target.tagName || "").toLowerCase();
+    if (tag === "input" || tag === "textarea" || tag === "select") return;
+    if (e.key === "/") { e.preventDefault(); openSearch(); return; }
+    if (e.key === "Escape") { closeDrawers(); return; }
+    if (e.key === "ArrowLeft" && !prevBtn.disabled) { prevBtn.click(); }
+    if (e.key === "ArrowRight" && !nextBtn.disabled) { nextBtn.click(); }
+  });
+
+  /* ---- initial state ---- */
+  enhanceToc();
+  wordEls.forEach(enhanceWord);
+  renderBookmarks();
+  var hash = location.hash ? location.hash.slice(1) : "";
+  if (pageById[hash]) showPage(hash);
+  else if (wordById[hash]) showPage(wordById[hash].closest(".reader-page").id, hash);
+  else if (state.lastPage && pageById[state.lastPage]) showPage(state.lastPage);
+  else showPage("page-cover");
+  updateChrome();
+})();
+</script>
+</body>
+</html>
