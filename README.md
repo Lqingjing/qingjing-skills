@@ -1,6 +1,6 @@
 # my-skills
 
-可复用的 Agent Skills。
+可复用的 Agent Skills 与设计笔记。
 
 | 技能 | 已验收范围 | 用途 |
 |---|---|---|
@@ -16,12 +16,16 @@
 
 [codex-provider-switch-guard 的使用与验证说明](skills/codex-provider-switch-guard/README.md)。本版开放只读状态、备份检查和隔离合成测试。真实 Desktop 双向往返、认证和模型请求尚未验收，生产写入保持禁用。
 
-本仓库不包含私人学习系统、原始课程资料或本地测试宿主。
+本仓库不包含私人学习系统的运行实例、原始课程资料或本地测试宿主；`workbench-notes/` 仅包含经脱敏的设计快照，不含真实学习记录。
 
 ## 演示项目
 
 - [医考帮离线批次监督与验收演示](demos/batch-acceptance-demo/)。使用自编数据演示批次监督、覆盖核验和验收结果保护。
 - [Markdown 笔记转离线电子书演示](demos/markdown-notes-to-ebook/)。使用自编《微型阳台观测手册》演示构建、离线阅读、搜索、标记和 JSON 恢复。
+
+## 设计笔记
+
+- [医学 AI 学习工作台·2026-11 设计快照](workbench-notes/medical-learning/2026-11/)。四份规则的职责划分、工作台架构、真实学习片段与未验证边界；不是可安装 Skill。
 
 ## 许可
 
